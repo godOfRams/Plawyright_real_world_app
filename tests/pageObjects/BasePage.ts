@@ -51,15 +51,20 @@ export class BasePage {
     }
   }
 
-  async waitForGraphQLRequest (page: Page, operationName: string) {
-    return page.waitForResponse(async (resp) => {
+  async waitForGraphQLRequest(operationName: string) {
+    return this.page.waitForResponse(async (resp) => {
       if (resp.url().includes('/graphql')) {
-        const body = await resp.json();
-        return body?.data?.hasOwnProperty(operationName);
+        try {
+          const body = await resp.json();
+          return body?.data?.hasOwnProperty(operationName);
+        } catch (error) {
+          console.error('Error parsing JSON:', error);
+          return false;
+        }
       }
       return false;
     });
-  };
+  }
 
 
   //  ACTIONS:

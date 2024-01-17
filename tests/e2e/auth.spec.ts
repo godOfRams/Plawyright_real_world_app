@@ -27,12 +27,12 @@ test.describe("User Sign-up and Login", () => {
 
   test("should remember a user for 30 days after login", async ({ page,browser }) => {
     let user: User = await loginPage.database("find", "users");
-    let listBankAccountGQL = loginPage.waitForGraphQLRequest(page,'listBankAccount')
     await loginPage.login(user.username, "s3cret", { rememberUser: true });
+    let listBankAccountGQL = loginPage.waitForGraphQLRequest('listBankAccount')
     await listBankAccountGQL
     // Verify Session Cookie
     const cookies = await page.context().cookies();
-    expect(cookies).toHaveProperty("[0].expires");
+    await expect(cookies).toHaveProperty("[0].expires");
     // Logout User
     mainPage = new MainPage(page)
     await mainPage.clickLogOutBtn()
@@ -68,30 +68,30 @@ test.describe("User Sign-up and Login", () => {
     await signUpPage.clickSignUpSubmitBtn()
     await waitForSignUpRequest;
     // Login User
+    let listBankAccountGQL =  loginPage.waitForGraphQLRequest('listBankAccount')
     await loginPage.login(userInfo.username, userInfo.password);
-    let listBankAccountGQL =  loginPage.waitForGraphQLRequest(page,'listBankAccount')
     await listBankAccountGQL
     // Onboarding
     mainPage= new MainPage(page)
     onboardingPopUpPage= new OnboardingPopUpPage(page)
-    expect(mainPage.user_onboarding_dialog).toBeVisible()
-    expect(mainPage.list_skeleton).toHaveCount(0)
-    expect(mainPage.navTopNotificationsCount).toHaveCount(1)
+    await expect(mainPage.user_onboarding_dialog).toBeVisible()
+    await expect(mainPage.list_skeleton).toHaveCount(0)
+    await expect(mainPage.navTopNotificationsCount).toHaveCount(1)
     await signUpPage.visualSnapshot( "User Onboarding Dialog");
     await onboardingPopUpPage.clickNextOnOnboarding()
-    expect (onboardingPopUpPage.userOnboardingDialogTitle).toHaveText('Create Bank Account')
+    await expect (onboardingPopUpPage.userOnboardingDialogTitle).toHaveText('Create Bank Account')
     await onboardingPopUpPage.typeBankName("The Best Bank")
     await onboardingPopUpPage.typeAccountNumber("123456789")
     await onboardingPopUpPage.typeRoutingNumber("987654321")
     await onboardingPopUpPage.visualSnapshot("About to complete User Onboarding");
-    let gqlCreateBankAccountMutation = loginPage.waitForGraphQLRequest(page,'createBankAccount')
+    let gqlCreateBankAccountMutation = loginPage.waitForGraphQLRequest('createBankAccount')
     await onboardingPopUpPage.clickSaveOnOnboarding()
     await gqlCreateBankAccountMutation
-    expect(onboardingPopUpPage.userOnboardingDialogTitle).toHaveText('Finished')
-    expect(onboardingPopUpPage.userOnboardingDialogContent).toContainText("You're all set!")
+    await expect(onboardingPopUpPage.userOnboardingDialogTitle).toHaveText('Finished')
+    await expect(onboardingPopUpPage.userOnboardingDialogContent).toContainText("You're all set!")
     await onboardingPopUpPage.visualSnapshot( "Finished User Onboarding");
     await onboardingPopUpPage.clickNextOnOnboarding()
-    expect(mainPage.transactionList).toBeVisible()
+    await expect(mainPage.transactionList).toBeVisible()
     await mainPage.visualSnapshot( "Transaction List is visible after User Onboarding");
     // Logout User
     await mainPage.clickLogOutBtn()
@@ -117,7 +117,7 @@ test.describe("User Sign-up and Login", () => {
     await signUpPage.typeConfirmPassword('DIFFERENT PASSWORD')
     await signUpPage.verifyTextAtPageBySelector(signUpPage.confirmPasswordHelperText,'Password does not match')
     await signUpPage.visualSnapshot("Display Sign Up Required Errors");
-    expect(signUpPage.signup_submit_btn).toBeDisabled()
+    await expect(signUpPage.signup_submit_btn).toBeDisabled()
     await signUpPage.visualSnapshot("Sign Up Submit Disabled");
   });
 
@@ -132,6 +132,6 @@ test.describe("User Sign-up and Login", () => {
       let user: User = await loginPage.database("find", "users");
       await loginPage.login( user.username, "INVALID", { rememberUser: true });
       await loginPage.verifyTextAtPageBySelector(loginPage.signinError, "Username or password is invalid")
-      signUpPage.visualSnapshot("Sign In, Invalid Username, Username or Password is Invalid");
+      await loginPage.visualSnapshot("Sign In, Invalid Username, Username or Password is Invalid");
   });
 });

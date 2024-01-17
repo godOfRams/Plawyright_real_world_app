@@ -30,15 +30,15 @@ export class LoginPage extends BasePage {
     if (!currentUrl.includes(signinPath)) {
       await this.page.goto(signinPath);
     }
-    expect(this.usernameInput).toBeVisible()
+    await expect(this.usernameInput).toBeVisible()
     await this.usernameInput.click();
     await this.usernameInput.fill(username);
-    expect(this.passwordInput).toBeVisible()
+    await expect(this.passwordInput).toBeVisible()
     await this.passwordInput.click();
     await this.passwordInput.fill(password);
     if (rememberUser) {
       await this.rememberMe.check();
-      expect(this.rememberMe).toBeChecked();
+      await expect(this.rememberMe).toBeChecked();
     }
     await this.signInBtn.click();  
     await loginUser;
