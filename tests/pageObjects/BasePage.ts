@@ -58,7 +58,6 @@ export class BasePage {
           const body = await resp.json();
           return body?.data?.hasOwnProperty(operationName);
         } catch (error) {
-          console.error('Error parsing JSON:', error);
           return false;
         }
       }
