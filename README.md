@@ -16,7 +16,7 @@ npm install yarn@latest -g
 ### Installation
 
 ```shell
-yarn
+yarn 
 ```
 
 ### Run the app
@@ -25,7 +25,29 @@ yarn
 yarn dev
 ```
 
-### Start Playwright
+### Running Playwright Tests
+
+Run all test:
+
+```shell
+yarn pw:test
+```
+
+Run tests in specific browser in HEADLESS mode:
+
+```shell
+yarn pw:chrome:headless
+yarn pw:firefox:headless
+yarn pw:webkit:headless
+```
+
+Run tests in specific browser in HEADED mode:
+
+```shell
+yarn pw:chrome
+yarn pw:firefox
+yarn pw:webkit
+```
 
 ### Start Cypress
 
@@ -55,19 +77,3 @@ yarn cypress:open
 > ```
 >
 > Avoid committing the modified `cypress.config.ts` into Git since the CI environments still expect the application to be run on default ports.
-
-
-
-Перепиши цей тест для репозиторії зберігаючи як запускати Але щоб опис був англійською з наступного тексту 
-
-Ця репозиторія це варіант тестів з файлу cypress\tests\ui\auth.spec.ts які написала команда сайпрес на фрейморк playwright typescript з використанням pageobject патерну 
-  додай також що щоб запустити тести на playwright варто прописати команду 
-
-    "pw:chrome": "npx playwright test --project=chromium --headed",
-    "pw:firefox": "npx playwright test --project=firefox --headed",
-    "pw:webkit": "npx playwright test --project=webkit --headed",
-    "pw:chrome:headless": "npx playwright test --project=chromium",
-    "pw:firefox:headless": "npx playwright test --project=firefox",
-    "pw:webkit:headless": "npx playwright test --project=webkit",
-    "pw:test": "npx playwright test",
-    "pw:test:headless": "npx playwright test --headed=false",
