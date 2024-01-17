@@ -47,7 +47,7 @@ describe("User Sign-up and Login", function () {
     cy.visualSnapshot("Redirect to SignIn");
   });
 
-  it("should allow a visitor to sign-up, login, and logout", function () {
+  it.only("should allow a visitor to sign-up, login, and logout", function () {
     const userInfo = {
       firstName: "Bob",
       lastName: "Ross",

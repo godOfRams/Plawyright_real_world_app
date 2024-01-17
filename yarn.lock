@@ -4310,10 +4310,22 @@
   resolved "https://registry.yarnpkg.com/@percy/logger/-/logger-1.27.6.tgz#3dd40a2426db34edeeade29d688c55b35fe270ba"
   integrity sha512-Thbc9vWc626n+m3+LDKXTUBs3LqtwomI+rA/gajTOegd9ENsLLi8kTVM7AwwIlHp6TqLdBw0vXFlGEi+F2okUA==
 
+"@percy/playwright@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@percy/playwright/-/playwright-1.0.4.tgz#82f325dc772aeef0e6fb3de402ec1ea3783160b0"
+  integrity sha512-prXvaEyvM6M7vGx0YujdMmFf+rZqkQpDEK32ZOwXbMzKYhGXjyiYESa4Axhc+Pz/c0THhXZWH4/70IW0RcyCQA==
+  dependencies:
+    "@percy/sdk-utils" "^1.0.0"
+
 "@percy/sdk-utils@1.27.6":
   version "1.27.6"
   resolved "https://registry.yarnpkg.com/@percy/sdk-utils/-/sdk-utils-1.27.6.tgz#f6daa7f81fde65d61e7c2817ad1215eda4eed7fe"
   integrity sha512-oZwd9u+KnFdMbA8HmisiWY5un4qB00kNUJtn/6CsXSpLwMi4qhOiBp8xjex0Aq5dqQc3vklWdlPu7JFxGwQq4Q==
+
+"@percy/sdk-utils@^1.0.0":
+  version "1.27.7"
+  resolved "https://registry.yarnpkg.com/@percy/sdk-utils/-/sdk-utils-1.27.7.tgz#b376c1ad653f3c70fea08a3db11eb63622ca6b53"
+  integrity sha512-E21dIEQ9wwGDno41FdMDYf6jJow5scbWGClqKE/ptB+950W4UF5C4hxhVVQoEJxDdLE/Gy/8ZJR7upvPHShWDg==
 
 "@percy/sdk-utils@^1.3.1":
   version "1.27.3"
