@@ -1,5 +1,5 @@
-
 ## Real-World App Playwright Port
+
 This repository hosts a variant of the Cypress Real-World App (RWA), where tests originally written in Cypress located in cypress/tests/ui/auth.spec.ts have been ported to Playwright using TypeScript. The tests are structured using the Page Object Model pattern, offering an organized and maintainable codebase for testing.
 
 ## Getting Started
@@ -11,7 +11,7 @@ npm install yarn@latest -g
 ### Installation
 
 ```shell
-yarn 
+yarn
 ```
 
 ### Run the app

@@ -1,5 +1,5 @@
-import { BasePage } from './BasePage';
-import { Page,Locator } from '@playwright/test';
+import { BasePage } from "./BasePage";
+import { Page, Locator } from "@playwright/test";
 
 export class OnboardingPopUpPage extends BasePage {
   readonly user_onboarding_dialog: Locator;
@@ -12,7 +12,7 @@ export class OnboardingPopUpPage extends BasePage {
   readonly userOnboardingDialogContent: Locator;
 
   constructor(page: Page) {
-    super(page)
+    super(page);
     this.user_onboarding_dialog = page.locator(`[data-test=user-onboarding-dialog]`);
     this.userOnboardingNext = page.locator(`[data-test=user-onboarding-next]`);
     this.userOnboardingDialogTitle = page.locator(`[data-test=user-onboarding-dialog-title]`);
@@ -22,24 +22,23 @@ export class OnboardingPopUpPage extends BasePage {
     this.saveButton = page.locator(`[data-test="bankaccount-submit"]`);
     this.userOnboardingDialogContent = page.locator(`[data-test="user-onboarding-dialog-content"]`);
   }
-  
-  clickNextOnOnboarding = async()=>{
-    await this.clickButton(this.userOnboardingNext)
-  }
 
-  typeBankName = async(bankName:string)=>{
-    await this.typeInField(this.bankNameInput,bankName)
-  }
+  clickNextOnOnboarding = async () => {
+    await this.clickButton(this.userOnboardingNext);
+  };
 
-  typeAccountNumber = async(accountNumber:string)=>{
-    await this.typeInField(this.accountNumberInput,accountNumber)
-  }
+  typeBankName = async (bankName: string) => {
+    await this.typeInField(this.bankNameInput, bankName);
+  };
 
-  typeRoutingNumber = async(routingNumber:string)=>{
-    await this.typeInField(this.routingNumberInput,routingNumber)
-  }
-  clickSaveOnOnboarding = async()=>{
-    await this.clickButton(this.saveButton)
-  }
-  
+  typeAccountNumber = async (accountNumber: string) => {
+    await this.typeInField(this.accountNumberInput, accountNumber);
+  };
+
+  typeRoutingNumber = async (routingNumber: string) => {
+    await this.typeInField(this.routingNumberInput, routingNumber);
+  };
+  clickSaveOnOnboarding = async () => {
+    await this.clickButton(this.saveButton);
+  };
 }

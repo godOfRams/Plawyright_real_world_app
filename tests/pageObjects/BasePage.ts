@@ -1,4 +1,4 @@
-import { Page, Locator,expect } from '@playwright/test';
+import { Page, Locator, expect } from "@playwright/test";
 import percySnapshot from "@percy/playwright";
 import axios from "axios";
 import _ from "lodash";
@@ -7,13 +7,13 @@ dotenv.config();
 
 export class BasePage {
   protected page: Page;
-  readonly testDataApiEndpoint:string
-  readonly apiGraphQL:string
+  readonly testDataApiEndpoint: string;
+  readonly apiGraphQL: string;
 
   constructor(page: Page) {
     this.page = page;
-    this.testDataApiEndpoint=`${process.env.API_URL}/testData`;
-    this.apiGraphQL =`${this.testDataApiEndpoint}/graphql`;
+    this.testDataApiEndpoint = `${process.env.API_URL}/testData`;
+    this.apiGraphQL = `${this.testDataApiEndpoint}/graphql`;
   }
 
   //  DATABASE:
@@ -23,11 +23,11 @@ export class BasePage {
         const { data } = await axios.get(`${this.testDataApiEndpoint}/${entity}`);
         return callback(data, attrs);
       };
-    
+
       return Array.isArray(query) ? Promise.all(query.map(fetchData)) : fetchData(query);
     } catch (error) {
       console.error("Error querying database:", error);
-      throw error; 
+      throw error;
     }
   }
 
@@ -46,14 +46,14 @@ export class BasePage {
       const { data } = await axios.post(`${this.testDataApiEndpoint}/seed`);
       return data;
     } catch (error) {
-      console.error('Error seeding database:', error);
+      console.error("Error seeding database:", error);
       throw error;
     }
   }
 
   async waitForGraphQLRequest(operationName: string) {
     return this.page.waitForResponse(async (resp) => {
-      if (resp.url().includes('/graphql')) {
+      if (resp.url().includes("/graphql")) {
         try {
           const body = await resp.json();
           return body?.data?.hasOwnProperty(operationName);
@@ -65,7 +65,6 @@ export class BasePage {
     });
   }
 
-
   //  ACTIONS:
   async typeInField(field: Locator, text: string): Promise<void> {
     await expect(field).toBeVisible();
@@ -73,7 +72,7 @@ export class BasePage {
     await field.fill(text);
   }
 
-  async clearField(field: Locator,): Promise<void> {
+  async clearField(field: Locator): Promise<void> {
     await expect(field).toBeVisible();
     await field.clear();
     await field.blur();
@@ -85,13 +84,13 @@ export class BasePage {
   }
 
   //  ASSERTIONS:
-  async verifyTextAtPageBySelector (selector: Locator,  shouldHaveText:string) {
+  async verifyTextAtPageBySelector(selector: Locator, shouldHaveText: string) {
     await expect(selector).toBeVisible();
     await expect(selector).toHaveText(shouldHaveText);
-  };
+  }
 
-  async visualSnapshot (maybeName: string) {
-    //TODO add default resolution setting 
-    await percySnapshot(this.page, maybeName); 
-  };
+  async visualSnapshot(maybeName: string) {
+    //TODO add default resolution setting
+    await percySnapshot(this.page, maybeName);
+  }
 }
