@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.40.0-jammy
-      image: mcr.microsoft.com/playwright:v1.40.0-jammy
       options: --user 1001
     steps:
       - name: Checkout
@@ -60,14 +59,7 @@ ui-chrome-tests:
       with:
         name: build
         path: build
-    - name: Download the build folders
-      uses: actions/download-artifact@v3
-      with:
-        name: build
-        path: build
 
-    - name: Node info
-      run: node -v
     - name: Node info
       run: node -v
 
