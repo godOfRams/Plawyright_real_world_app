@@ -15,4 +15,4 @@ jobs:
       - uses: actions/checkout@v3
       - run: yarn
       - run: yarn build:ci
-      - run: start-server-and-test 'yarn dev' http://localhost:3000 'yarn pw:test'
+      - run: ci:test
