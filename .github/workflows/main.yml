@@ -6,16 +6,13 @@ on:
       - "renovate/**"
 
 jobs:
-  install:
+  test:
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.41.1-jammy
       options: --user 1001
     steps:
       - uses: actions/checkout@v3
-      - name: install dependenciec
-        run: yarn
-      - name: build server
-        run: yarn build:ci
-      - name: start server and run server
-        run: yarn ci:test
+      - run: yarn
+      - run: yarn build:ci
+      - run: start-server-and-test 'yarn dev' http://localhost:3000 'yarn pw:test'
