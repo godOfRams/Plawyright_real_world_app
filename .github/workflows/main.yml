@@ -63,6 +63,9 @@ jobs:
       - name: Node info
         run: node -v
 
+      - name: Set PERCY_TOKEN
+        run: echo "PERCY_TOKEN=${{ secrets.PERCY_TOKEN }}" >> $GITHUB_ENV
+
       - name: Run Playwright Test - Chrome
         run: yarn pw:chrome:headless
 
@@ -86,6 +89,9 @@ jobs:
         with:
           name: build
           path: build
+
+      - name: Set PERCY_TOKEN
+        run: echo "PERCY_TOKEN=${{ secrets.PERCY_TOKEN }}" >> $GITHUB_ENV      
 
       - name: Run Playwright Test - Firefox
         run: yarn pw:firefox:headless
