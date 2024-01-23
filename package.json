@@ -172,6 +172,7 @@
     "pw:webkit:headless": "npx playwright test --project=webkit",
     "pw:test": "percy exec -- yarn playwright test",
     "pw:test:headed": "npx playwright test --headed",
+    "ci:test": "start-server-and-test 'yarn start:ci' http://localhost:3000 'yarn pw:test'",
     "test": "yarn cypress:open",
     "test:headless": "yarn cypress:run",
     "test:api": "yarn cypress:run --spec 'cypress/tests/api/*'",
