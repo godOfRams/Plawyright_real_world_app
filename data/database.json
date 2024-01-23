@@ -76,15 +76,15 @@
       "modifiedAt": "2020-05-21T15:15:33.944Z"
     },
     {
-      "id": "V4xa4fuAY",
-      "uuid": "46bf3086-35fe-4cac-835c-0d1be76a8d74",
+      "id": "0zgvpmSfO",
+      "uuid": "3b0b5286-2ce5-4e62-99a2-ef02e82c29d2",
       "firstName": "Bob",
       "lastName": "Ross",
       "username": "PainterJoy90",
-      "password": "$2a$10$J7suaLIBpfNL0HKyibdbc.yRdS5uxqm.s/GMdEbxfsExcr2.ZaOpa",
+      "password": "$2a$10$RE//8pxbqUZF68v5FuIhfe1U84OvSDANhmu/0AN4ozXwR1l.i6xky",
       "balance": 0,
-      "createdAt": "2024-01-23T12:43:36.701Z",
-      "modifiedAt": "2024-01-23T12:43:36.701Z"
+      "createdAt": "2024-01-23T13:46:17.352Z",
+      "modifiedAt": "2024-01-23T13:46:17.352Z"
     }
   ],
   "contacts": [
@@ -266,15 +266,15 @@
       "modifiedAt": "2020-05-21T22:40:28.910Z"
     },
     {
-      "id": "HIy1AM0mz",
-      "uuid": "d58055b8-f1b2-4fc9-82e6-1430596db7af",
-      "userId": "V4xa4fuAY",
+      "id": "5KH_SlEJP",
+      "uuid": "afbed1e0-f618-44c4-a080-81df179e1ad0",
+      "userId": "0zgvpmSfO",
       "bankName": "The Best Bank",
       "accountNumber": "987654321",
       "routingNumber": "123456789",
       "isDeleted": false,
-      "createdAt": "2024-01-23T12:43:43.272Z",
-      "modifiedAt": "2024-01-23T12:43:43.272Z"
+      "createdAt": "2024-01-23T13:46:23.880Z",
+      "modifiedAt": "2024-01-23T13:46:23.880Z"
     }
   ],
   "transactions": [
