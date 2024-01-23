@@ -4,8 +4,9 @@ on:
   push:
     branches-ignore:
       - "renovate/**"
+
 jobs:
-  install:
+  test:
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.41.1-jammy
@@ -32,66 +33,5 @@ jobs:
       - name: Build
         run: yarn build:ci
 
-      - name: Save build folder
-        uses: actions/upload-artifact@v3
-        with:
-          name: build
-          if-no-files-found: error
-          path: build
-          
-  ui-chrome-tests:
-    timeout-minutes: 15
-    runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright:v1.41.1-jammy
-      options: --user 1001
-    needs: install
-    strategy:
-      fail-fast: false
-      matrix:
-        containers: [1, 2, 3, 4, 5]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        
-      - name: Download the build folders
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: build
-
-      - name: Node info
-        run: node -v
-
-      - name: Set PERCY_TOKEN
-        run: echo "PERCY_TOKEN=${{ secrets.PERCY_TOKEN }}" >> $GITHUB_ENV
-
       - name: Run Playwright Test - Chrome
-        run: yarn pw:chrome:headless
-
-  ui-firefox-tests:
-    timeout-minutes: 15
-    runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright:v1.41.1-jammy
-      options: --user 1001
-    needs: install
-    strategy:
-      fail-fast: false
-      matrix:
-        containers: [1, 2, 3, 4, 5]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Download the build folders
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: build
-
-      - name: Set PERCY_TOKEN
-        run: echo "PERCY_TOKEN=${{ secrets.PERCY_TOKEN }}" >> $GITHUB_ENV      
-
-      - name: Run Playwright Test - Firefox
-        run: yarn pw:firefox:headless
+        run: yarn pw:test
