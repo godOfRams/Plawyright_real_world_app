@@ -1,4 +1,4 @@
-import { Page, Locator, expect } from "@playwright/test";
+import { Page,BrowserType , Locator, expect } from "@playwright/test";
 import percySnapshot from "@percy/playwright";
 import axios from "axios";
 import _ from "lodash";
@@ -7,11 +7,13 @@ dotenv.config();
 
 export class BasePage {
   protected page: Page;
+  protected browserName: string;
   readonly testDataApiEndpoint: string;
   readonly apiGraphQL: string;
 
-  constructor(page: Page) {
+  constructor(page: Page, browserName:string ) {
     this.page = page;
+    this.browserName = browserName ;
     this.testDataApiEndpoint = `${process.env.API_URL}/testData`;
     this.apiGraphQL = `${this.testDataApiEndpoint}/graphql`;
   }
@@ -91,6 +93,7 @@ export class BasePage {
 
   async visualSnapshot(maybeName: string) {
     //TODO add default resolution setting
-    await percySnapshot(this.page, maybeName);
+
+    await percySnapshot(this.page,  `${this.browserName} - ${maybeName}`);
   }
 }

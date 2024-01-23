@@ -15,8 +15,8 @@ export class SignUpPage extends BasePage {
   readonly confirmPasswordHelperText: Locator;
   readonly signup_submit_btn: Locator;
 
-  constructor(page: Page) {
-    super(page);
+  constructor(page: Page, browserName) {
+    super(page,browserName);
     this.signup_title = page.locator(`[data-test=signup-title]`);
     this.signup_first_name_field = page.locator(`[data-test=signup-first-name] input`);
     this.firstNameHelperText = page.locator(`#firstName-helper-text`);

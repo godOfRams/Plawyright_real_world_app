@@ -9,8 +9,8 @@ export class MainPage extends BasePage {
   readonly userOnboardingNext: Locator;
   readonly transactionList: Locator;
 
-  constructor(page: Page) {
-    super(page);
+  constructor(page: Page, browserName) {
+    super(page,browserName);
     this.user_onboarding_dialog = page.locator(`[data-test=user-onboarding-dialog]`);
     this.list_skeleton = page.locator(`[data-test=list-skeleton]`);
     this.logOutBtn = page.locator(`[data-test=sidenav-signout]`);
