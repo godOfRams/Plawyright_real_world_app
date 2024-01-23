@@ -11,8 +11,8 @@ export class OnboardingPopUpPage extends BasePage {
   readonly saveButton: Locator;
   readonly userOnboardingDialogContent: Locator;
 
-  constructor(page: Page) {
-    super(page);
+  constructor(page: Page, browserName) {
+    super(page,browserName);
     this.user_onboarding_dialog = page.locator(`[data-test=user-onboarding-dialog]`);
     this.userOnboardingNext = page.locator(`[data-test=user-onboarding-next]`);
     this.userOnboardingDialogTitle = page.locator(`[data-test=user-onboarding-dialog-title]`);

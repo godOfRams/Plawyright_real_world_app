@@ -8,8 +8,8 @@ let mainPage: MainPage;
 let onboardingPopUpPage: OnboardingPopUpPage;
 
 test.describe("User Sign-up and Login", () => {
-  test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
+  test.beforeEach(async ({ page, browserName}) => {
+    loginPage = new LoginPage(page,browserName);
     await loginPage.db_seed();
   });
 
@@ -25,7 +25,7 @@ test.describe("User Sign-up and Login", () => {
     await expect(page).toHaveURL("/");
   });
 
-  test("should remember a user for 30 days after login", async ({ page, browser }) => {
+  test("should remember a user for 30 days after login", async ({ page, browserName }) => {
     let user: User = await loginPage.database("find", "users");
     await loginPage.login(user.username, "s3cret", { rememberUser: true });
     let listBankAccountGQL = loginPage.waitForGraphQLRequest("listBankAccount");
@@ -34,13 +34,13 @@ test.describe("User Sign-up and Login", () => {
     const cookies = await page.context().cookies();
     await expect(cookies).toHaveProperty("[0].expires");
     // Logout User
-    mainPage = new MainPage(page);
+    mainPage = new MainPage(page,browserName);
     await mainPage.clickLogOutBtn();
     await expect(page).toHaveURL("/signin");
     await loginPage.visualSnapshot("Redirect to SignIn");
   });
 
-  test("should allow a visitor to sign-up, login, and logOut", async ({ page }) => {
+  test("should allow a visitor to sign-up, login, and logOut", async ({ page,browserName }) => {
     const userInfo = {
       firstName: "Bob",
       lastName: "Ross",
@@ -52,7 +52,7 @@ test.describe("User Sign-up and Login", () => {
     await page.waitForURL("**/signin");
     await loginPage.clearField(loginPage.usernameInput);
     await loginPage.clickSignUpBtn();
-    signUpPage = new SignUpPage(page);
+    signUpPage = new SignUpPage(page,browserName);
     await signUpPage.verifyTextAtPageBySelector(signUpPage.signup_title, "Sign Up");
     await signUpPage.visualSnapshot("Sign Up Title");
     await signUpPage.typeFirstName(userInfo.firstName);
@@ -72,8 +72,8 @@ test.describe("User Sign-up and Login", () => {
     await loginPage.login(userInfo.username, userInfo.password);
     await listBankAccountGQL;
     // Onboarding
-    mainPage = new MainPage(page);
-    onboardingPopUpPage = new OnboardingPopUpPage(page);
+    mainPage = new MainPage(page,browserName);
+    onboardingPopUpPage = new OnboardingPopUpPage(page,browserName);
     await expect(mainPage.user_onboarding_dialog).toBeVisible();
     await expect(mainPage.list_skeleton).toHaveCount(0);
     await expect(mainPage.navTopNotificationsCount).toHaveCount(1);
@@ -99,9 +99,9 @@ test.describe("User Sign-up and Login", () => {
     await mainPage.visualSnapshot("Redirect to SignIn");
   });
 
-  test("should display signup errors", async ({ page }) => {
+  test("should display signup errors", async ({ page,browserName }) => {
     await page.goto("/signup");
-    signUpPage = new SignUpPage(page);
+    signUpPage = new SignUpPage(page,browserName);
     await signUpPage.typeFirstName("First");
     await signUpPage.clearField(signUpPage.signup_first_name_field);
     await signUpPage.verifyTextAtPageBySelector(

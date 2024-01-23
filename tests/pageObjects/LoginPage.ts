@@ -8,8 +8,8 @@ export class LoginPage extends BasePage {
   readonly rememberMe: Locator;
   readonly signupBtn: Locator;
 
-  constructor(page: Page) {
-    super(page);
+  constructor(page: Page, browserName) {
+    super(page,browserName);
     this.signInBtn = page.locator(`[data-test=signin-submit]`);
     this.signinError = page.locator(`[data-test=signin-error]`);
     this.usernameInput = page.locator(`[data-test=signin-username] input`);
