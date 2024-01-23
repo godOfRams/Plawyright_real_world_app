@@ -26,7 +26,6 @@ export class LoginPage extends BasePage {
     const signinPath = "/signin";
     const loginUser = this.page.waitForRequest((request) => request.url().includes("/login"));
     let currentUrl = this.page.url();
-    console.log(currentUrl);
     if (!currentUrl.includes(signinPath)) {
       await this.page.goto(signinPath);
     }
