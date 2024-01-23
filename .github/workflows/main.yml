@@ -6,32 +6,34 @@ on:
       - "renovate/**"
 
 jobs:
-  test:
+  install:
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.41.1-jammy
       options: --user 1001
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Install Dependencies
-        run: yarn
-
-      - name: Node Version
-        run: node --version
-
-      - name: CPU Info
-        run: node -p 'os.cpus()'
-
-      - name: Type Check
-        run: yarn types
-
-      - name: Lint
-        run: yarn lint
-
-      - name: Build
-        run: yarn dev
-
-      - name: Run Playwright Test
-        run: yarn pw:test
+      - uses: actions/checkout@v3
+      - run: yarn
+      - run: yarn build:ci
+      - run: yarn start:ci & sleep 10
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build
+          if-no-files-found: error
+          path: build
+      
+  ui-chrome-tests:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.41.1-jammy
+      options: --user 1001
+    needs: install
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: build
+      - run: yarn start:ci & sleep 10
+      - run: yarn pw:test
