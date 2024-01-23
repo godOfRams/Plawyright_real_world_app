@@ -92,8 +92,17 @@ export class BasePage {
   }
 
   async visualSnapshot(maybeName: string) {
-    //TODO add default resolution setting
-
-    await percySnapshot(this.page,  `${this.browserName} - ${maybeName}`);
+    const viewportSize = this.page.viewportSize();
+    if (!viewportSize) {
+      throw new Error("Viewport size is not set");
+    }
+    
+    const snapshotName = `${this.browserName} - ${maybeName}`;
+    const snapshotOptions = {
+      widths: [viewportSize.width],
+      minHeight: viewportSize.height
+    };
+  
+    await percySnapshot(this.page, snapshotName, snapshotOptions);
   }
 }
